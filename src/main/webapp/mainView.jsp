@@ -45,7 +45,6 @@ pageEncoding="UTF-8"%>
 	            background-color: #ddd;
 	        }
 	        .food-list {
-	            display: none;
 	            margin-top: 20px;
 	        }
 	        .food-list h2 {
@@ -65,7 +64,8 @@ pageEncoding="UTF-8"%>
 	        <!-- 질병 목록 -->
 	        <div class="disease-list" id="disease-list">
 	        	<c:forEach items="${diseases}" var="disease">
-					<button>
+					<button onclick="loadFoodInfo(${disease.diseaseId})">
+						${disease.diseaseId}<br>
 						${disease.diseaseName}<br>
 					</button>
 				</c:forEach>
@@ -73,16 +73,26 @@ pageEncoding="UTF-8"%>
 	
 	        <!-- 음식 정보 섹션 -->
 	        <div id="food-info" class="food-list">
-	            <h2>피해야 할 음식</h2>
-	            <ul id="avoid-list"></ul>
-					
-	            <h2 style="color: green;">추천 음식</h2>
-	            <ul id="recommend-list"></ul>
+	            
 	        </div>
 	    </div> 
 	    
 	</body>
 	<script>
+		function loadFoodInfo(diseaseId) {
+			alert(1);
+			const xhttp = new XMLHttpRequest();
+			
 		
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					let data = this.responseText; //서버가 응답한 데이터를 보유하게 되는 속성
+			      	console.log(data,typeof(data));
+			    	document.getElementById("food-info").innerHTML = data;
+			    	}
+				};
+			xhttp.open("GET", "goodFood?diseaseId="+diseaseId);
+			xhttp.send();
+		}
 	</script>
 </html>
