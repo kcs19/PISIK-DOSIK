@@ -17,7 +17,7 @@ public class DataSourceManager {
 		InitialContext ctx = null;
 		try {
 			ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/pisikdosikMysqlDB");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/pisikDB");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
