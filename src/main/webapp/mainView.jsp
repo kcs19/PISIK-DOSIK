@@ -125,6 +125,15 @@ pageEncoding="UTF-8"%>
 					</button>
 				</c:forEach>
 	        </div>	
+	        
+	        <div class="disease-list" id="disease-list">
+			    <select id="disease-select" onchange="loadFoodInfo()">
+			        <option value="">질병을 선택하세요</option>
+			        <c:forEach items="${diseases}" var="disease">
+			            <option value="${disease.diseaseId}">${disease.diseaseName}</option>
+			        </c:forEach>
+			    </select>
+			</div>
 	
 	        <!-- 음식 정보 섹션 -->
 	        <div id="food-info" class="food-list">

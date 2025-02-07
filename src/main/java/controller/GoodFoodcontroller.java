@@ -32,7 +32,7 @@ public class GoodFoodcontroller extends HttpServlet {
 		request.setAttribute("foodList", foodList);
 		System.out.println(diseaseId);
 		
-		request.getRequestDispatcher("goodFoodView.jsp")
+		request.getRequestDispatcher("foodView.jsp")
 		.forward(request, response);
 	}
 
