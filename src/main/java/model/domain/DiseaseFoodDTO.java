@@ -28,5 +28,17 @@ public class DiseaseFoodDTO {
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("DiseaseFoodDTO [foodType=");
+		builder.append(foodType);
+		builder.append(", foodName=");
+		builder.append(foodName);
+		builder.append(", reason=");
+		builder.append(reason);
+		builder.append("]");
+		return builder.toString();
+	}
 	
 }

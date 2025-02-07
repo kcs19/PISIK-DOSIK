@@ -14,27 +14,25 @@ public class DiseaseFoodsDAO {
 	public static ArrayList<DiseaseFoodDTO> getAllFoodInfoByDiseaseId(int diseaseId) throws Exception {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		PreparedStatement pstmt2 = null;
 		ResultSet rs = null;
-		ResultSet rs2 = null;
 		ArrayList<DiseaseFoodDTO> foodList = null;
-
+		
 		try {
 			con = DataSourceManager.getConnection();
+			
 			pstmt = con.prepareStatement("select * from disease_foods where disease_id=?");
 			pstmt.setInt(1, diseaseId);
 			rs = pstmt.executeQuery();
-			
-			int foodId = rs.getInt("food_id");
-			pstmt2 = con.prepareStatement("select food_name from foods where food_id=?");
-			pstmt2.setInt(1, foodId);
-			rs2 = pstmt.executeQuery();
-			
 			foodList = new ArrayList<>();
-			while (rs.next()) {
-				foodList.add(new DiseaseFoodDTO(rs.getString("food_type"), rs2.getString("food_name"), rs.getString("reason")));
-			}
 			
+			while (rs.next()) {
+				int foodId = rs.getInt(3);
+				foodList.add(new DiseaseFoodDTO(rs.getString(4), FoodDAO.getFoodNameByFoodId(foodId), rs.getString(5)));
+			}
+			System.out.println(foodList);
+			for (DiseaseFoodDTO f : foodList) {
+				System.out.println(f.toString());
+			}
 		} finally {
 			DataSourceManager.close(con, pstmt, rs);
 		}
