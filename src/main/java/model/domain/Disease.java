@@ -4,7 +4,7 @@ public class Disease {
     private int diseaseId;
     private String diseaseName;
 
-    public Disease(int diseaseId, String diseaseName, String description) {
+    public Disease(int diseaseId, String diseaseName) {
         this.diseaseId = diseaseId;
         this.diseaseName = diseaseName;
     }
