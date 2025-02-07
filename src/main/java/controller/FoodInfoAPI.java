@@ -22,7 +22,7 @@ public class FoodInfoAPI extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        System.out.println(diseaseList.get(0).getDiseaseId());
+        //System.out.println(diseaseList.get(0).getDiseaseId());
 
         // request에 질병 리스트 저장
         request.setAttribute("diseases", diseaseList);
