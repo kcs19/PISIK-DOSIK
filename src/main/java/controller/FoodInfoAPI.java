@@ -21,16 +21,15 @@ public class FoodInfoAPI extends HttpServlet {
         try {
 			diseaseList.addAll(DiseaseDAO.getAllDisease());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         System.out.println(diseaseList.get(0).getDiseaseId());
 
         // request에 질병 리스트 저장
-        request.setAttribute("diseaseList", diseaseList);
+        request.setAttribute("diseases", diseaseList);
 
         // mainView.jsp로 포워딩
-       // request.getRequestDispatcher("/mainView.jsp").forward(request, response);
+        request.getRequestDispatcher("/mainView.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
