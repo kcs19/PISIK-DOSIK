@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.DiseaseDAO;
 import model.domain.Disease;
-
 @WebServlet("/info-data")
 public class FoodInfoAPI extends HttpServlet {
 

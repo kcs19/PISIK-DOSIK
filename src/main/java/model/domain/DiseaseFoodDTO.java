@@ -1,7 +1,7 @@
 package model.domain;
 
 public class DiseaseFoodDTO {
-	private String foodType;
+	private String foodType;   
 	private String foodName;
 	private String reason;
 	
