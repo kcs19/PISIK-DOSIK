@@ -100,6 +100,7 @@ pageEncoding="UTF-8"%>
 	</head>
 	
 	<body>
+		
 		 <div class="container">
 	        <h1>건강 식단 정보</h1>
 	        <p>질병별 맞춤 식단 정보를 확인하세요</p>
@@ -112,6 +113,9 @@ pageEncoding="UTF-8"%>
 						${disease.diseaseName}<br>
 					</button>
 				</c:forEach>
+				<c:if test="${empty diseases}">
+    					<p>헐랭.</p>
+				</c:if>
 	        </div>	
 	        
 	        <div class="disease-list" id="disease-list">
@@ -138,21 +142,19 @@ pageEncoding="UTF-8"%>
 	    </footer>
 	</body>
 	<script>
-		function loadFoodInfo(diseaseId) {
-			alert(1);
-			const xhttp = new XMLHttpRequest();
-			
-		
-			xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					let data = this.responseText; //서버가 응답한 데이터를 보유하게 되는 속성
-			      	console.log(data,typeof(data));
-			    	document.getElementById("food-info").innerHTML = data;
-			    	document.getElementById("food-info").style.display = "block";
-			    	}
-				};
-			xhttp.open("GET", "goodFood?diseaseId="+diseaseId);
-			xhttp.send();
-		}
+	function loadFoodInfo(diseaseId) {
+        alert(1);
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                let data = this.responseText; // 서버가 응답한 데이터를 보유하게 되는 속성
+                console.log(data, typeof(data));
+                document.getElementById("food-info").innerHTML = data;
+                document.getElementById("food-info").style.display = "block";
+            }
+        };
+        xhttp.open("GET", "good-bad-info?diseaseId=" + diseaseId, true);
+        xhttp.send();
+    }
 	</script>
 </html>

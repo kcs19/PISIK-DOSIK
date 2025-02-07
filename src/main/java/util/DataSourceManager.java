@@ -18,7 +18,7 @@ public class DataSourceManager {
 		try {
 			ctx = new InitialContext();
 			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/pisikDB");
-		} catch (NamingException e) {
+		} catch (NamingException e) { 
 			e.printStackTrace();
 		}
 	}

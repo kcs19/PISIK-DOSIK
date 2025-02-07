@@ -12,7 +12,7 @@ public class Disease {
     public int getDiseaseId() {
         return diseaseId;
     }
-
+ 
     public void setDiseaseId(int diseaseId) {
         this.diseaseId = diseaseId;
     }
