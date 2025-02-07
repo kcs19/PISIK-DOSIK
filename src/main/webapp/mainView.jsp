@@ -44,12 +44,7 @@ pageEncoding="UTF-8"%>
 	        .disease-list button:hover {
 	            background-color: #ddd;
 	        }
-	        .food-list {
-	            margin-top: 20px;
-	        }
-	        .food-list h2 {
-	            color: #d9534f;
-	        }
+	        
 	        footer {
 			  background-color: #2d3748; /* 배경 색상: 회색 (#2d3748) */
 			  color: white; /* 텍스트 색상: 흰색 */
@@ -89,10 +84,6 @@ pageEncoding="UTF-8"%>
 			  transition: background-color 0.3s ease; /* 배경색 변경 애니메이션 */
 			}
 			
-			li:hover {
-			  background-color: #e2e2e2; /* 마우스 오버시 배경색 변경 */
-			}
-			
 			/* '피해야 할 음식' 제목 스타일 */
 			h2 {
 			  font-size: 1.5rem; /* 제목 폰트 크기 */
@@ -113,9 +104,6 @@ pageEncoding="UTF-8"%>
 	        <h1>건강 식단 정보</h1>
 	        <p>질병별 맞춤 식단 정보를 확인하세요</p>
 	
-	        <!-- 검색창 -->
-	        <input type="text" id="search" class="search-box" placeholder="질병명을 검색하세요">
-	
 	        <!-- 질병 목록 -->
 	        <div class="disease-list" id="disease-list">
 	        	<c:forEach items="${diseases}" var="disease">
@@ -127,19 +115,22 @@ pageEncoding="UTF-8"%>
 	        </div>	
 	        
 	        <div class="disease-list" id="disease-list">
-			    <select id="disease-select" onchange="loadFoodInfo()">
-			        <option value="">질병을 선택하세요</option>
+			    <select id="disease-select" onchange="loadFoodInfo(this.value)">
+			    	<option value="">질병을 선택해 주세요</option>
 			        <c:forEach items="${diseases}" var="disease">
 			            <option value="${disease.diseaseId}">${disease.diseaseName}</option>
 			        </c:forEach>
 			    </select>
 			</div>
 	
-	        <!-- 음식 정보 섹션 -->
-	        <div id="food-info" class="food-list">
-	            
-	        </div>
+	        
 	    </div> 
+	    
+	    <!-- 음식 정보 섹션 -->
+        <div id="food-info" class="container" style="display: none;">
+            
+        </div>
+	    
 	    <footer className="bg-gray-800 text-white mt-12">
 	        <div className="max-w-7xl mx-auto py-6 px-4 text-center">
 	          <p>© 2025 건강 식단 정보. All rights reserved.</p>
@@ -157,6 +148,7 @@ pageEncoding="UTF-8"%>
 					let data = this.responseText; //서버가 응답한 데이터를 보유하게 되는 속성
 			      	console.log(data,typeof(data));
 			    	document.getElementById("food-info").innerHTML = data;
+			    	document.getElementById("food-info").style.display = "block";
 			    	}
 				};
 			xhttp.open("GET", "goodFood?diseaseId="+diseaseId);
