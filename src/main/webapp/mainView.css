@@ -155,11 +155,17 @@ h2[style="color: green;"] {
     top: 0px;
     box-shadow: none !important;
     font-size: 25px;
+    font-family: 'ONE-Mobile-Regular';
+}
+
+.select option{
+	font-family: 'ONE-Mobile-Regular';
 }
 
 select {
     vertical-align: middle;
     appearance: none;
+	font-family: 'ONE-Mobile-Regular' !important;;
     background: url(https://365pharmacy.onlinepage.co.kr/css/../img/icon_select_arrow.png) no-repeat right 0px center !important;
     margin-left: auto; /* select를 오른쪽 정렬 */
     border: 3px solid #ccc;
