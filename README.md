@@ -4,7 +4,8 @@
 2. [🖥️시스템 구성](#️시스템-구성)<br>
 3. [🛜GCP를 통한 서버 배포](#gcp를-통한-서버-배포)<br>
 4. [🌠트러블슈팅](#트러블슈팅)<br>
-5. [📝회고](#회고)
+5. [⏱️ 질병-음식 쿼리 성능 최적화](#질병-음식-쿼리-성능-최적화)<br>
+6. [📝회고](#회고)
 
 
 <hr>
@@ -428,6 +429,99 @@ drwxr-x---  4 root root     4096 Feb  7 09:33 pisikdosik # 생성 완료!
     
     ⇒ 추천 식단이 사용자에게 페이지를 새로 고침하지 않고 서버에서 데이터를 가져와 동적으로 반영할 수 있어 사용자는 더 빠르게 정보를 확인할 수 있고, 직관이다.
 
+<br>
+
+---
+
+<br>
+
+## ⏱️ 질병-음식 쿼리 성능 최적화
+
+### 문제 상황
+
+질병 관련 음식 정보를 조회하는 데이터베이스 쿼리의 초기 구현이 비효율적이어서 애플리케이션의 응답 시간이 느렸습니다.
+
+### `EXPLAIN ANALYZE` 결과를 기반으로, 두 가지 쿼리 접근 방식의 성능을 비교
+
+#### 1. 단일 SELECT 방식
+
+```sql
+SELECT food_type, food_id, reason FROM disease_foods WHERE disease_id=1;
+SELECT food_name FROM foods WHERE food_id=3;
+```
+![Image](https://github.com/user-attachments/assets/f75007ba-2350-4acc-a1e8-ddbccb070e18)
+![Image](https://github.com/user-attachments/assets/76445f13-ca5b-4062-8745-7f646994bce2)
+
+- 첫 번째 쿼리: disease_foods 테이블에서 인덱스를 사용하여 검색 (0.0338ms)
+
+- 두 번째 쿼리: foods 테이블에서 Primary Key로 단일 행 조회 (0.000207ms)
+- 총 실행시간: 약 0.034ms
+
+#### 2. Nested Loop Inner Join 방식
+
+```sql
+SELECT df.food_type, f.food_name, df.reason
+FROM disease_foods df, foods f
+WHERE df.disease_id = 1 AND f.food_id = df.food_id;
+```
+
+![Image](https://github.com/user-attachments/assets/73aa2869-e1f8-4b50-be45-32aa070a0c0c)
+
+- disease_foods 테이블에서 인덱스 검색 후, 각 행(6개)에 대해 foods 테이블의 PK로 검색 6번의 loop 수행
+
+- 실행시간: 0.0583ms
+
+데이터베이스 실행 시간만 보면 단일 SELECT 방식이 더 빠릅니다. 
+<hr>
+
+### Java 애플리케이션에서의 실제 실행 시간
+
+#### ⏰ 실행 시간 측정 코드
+
+```java
+long startTime = System.currentTimeMillis();
+
+// 실행 시간을 측정하고자 하는 코드
+diseaseList.addAll(DiseaseFoodsDAO.getAllFoodInfoByDiseaseId(diseaseId));
+
+long endTime = System.currentTimeMillis();
+long elapsedTime = endTime - startTime;
+System.out.println("실행 시간: " + elapsedTime + " ms");
+```
+
+#### 1. 단일 SELECT 방식: 99ms
+
+![Image](https://github.com/user-attachments/assets/f1638d72-eed5-4f39-8044-cc50b9ec840b)
+
+#### 2. Nested Loop Inner Join 방식 : 10ms
+
+![Image](https://github.com/user-attachments/assets/1003ec9e-843b-4e60-b0d5-9fe481f6cd4d)
+<hr>
+
+### 최적화 결과
+
+#### 성능 개선 내용
+
+- 전체 실행 시간 **89% 감소** (99ms → 10ms)
+
+- 데이터베이스 호출 횟수 감소로 네트워크 부하 감소
+- 리소스 사용 효율성 향상
+
+#### 주요 발견 사항
+
+1. 순수 데이터베이스 실행 시간에서는 다중 쿼리 방식이 약간 더 빨랐지만, 실제 애플리케이션 성능은 매우 다른 결과를 보여줌
+
+2. 애플리케이션에서의 큰 성능 향상 이유:
+    - 단일 데이터베이스 호출로 네트워크 지연 시간 감소
+
+    - 다중 연결 처리에 따른 오버헤드 제거
+    - 애플리케이션 레이어에서의 더 효율적인 데이터 처리
+
+#### 향후 고려사항
+- 데이터베이스 실행 계획만이 아닌 실제 성능 지표 모니터링
+- 데이터 증가에 따른 지속적인 성능 모니터링
+- 자주 접근하는 데이터에 대한 캐싱 전략 검토
+- 다양한 부하 상황에서의 정기적인 성능 테스트 진행
 
 
 <hr>
