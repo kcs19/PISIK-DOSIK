@@ -1,4 +1,6 @@
-# 🥗PISIK-DOSIK
+![image](https://github.com/user-attachments/assets/48071697-9943-4497-b973-b14f3b90f360)
+
+
 ## 🗒️목차
 1. [📒프로젝트 개요](#-프로젝트-개요)<br>
 2. [🖥️시스템 구성](#️시스템-구성)<br>
@@ -336,7 +338,7 @@ drwxr-x---  4 root root     4096 Feb  7 09:33 pisikdosik # 생성 완료!
 
 <hr>
 
-## 🌠트러블슈팅
+## 🌠코드 리팩토링
 ### 1. JSTL 태그 사용으로 코드 간결화
 
 - 기존에는 JSP tag를 사용하여 Java코드를 이용해 select의 옵션을 반복적으로 생성함
@@ -369,7 +371,7 @@ drwxr-x---  4 root root     4096 Feb  7 09:33 pisikdosik # 생성 완료!
 ```
 
 - JSTL를 사용하여 코드 간결화
-    - EL(Expression Language) `${diseases}` 와 `<c:forEach>` 태그를 더 가독성을 높이고 코드를 단축할 수 있었습니다.
+    - EL(Expression Language) `${diseases}` 와 `<c:forEach>` 태그를 더 가독성을 높이고 코드를 단축
 
 ```html
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -389,9 +391,8 @@ drwxr-x---  4 root root     4096 Feb  7 09:33 pisikdosik # 생성 완료!
 </div>
 ```
 
-하지만 JSTL 라이브러리 추가가 필요했음
-
-1. **jstl  라이브러리 추가**
+1-1. **jstl  라이브러리 추가**
+   JSTL태그 사용시, 라이브러리 추가가 필요했음
     
     ![Image](https://github.com/user-attachments/assets/fdd6e969-6bb5-404e-b848-6a42cdccf42b)
     
@@ -405,8 +406,8 @@ drwxr-x---  4 root root     4096 Feb  7 09:33 pisikdosik # 생성 완료!
         
     
 
-1. 질병 정보 페이지 이동이 아닌 비동기로 정보 추가
-    - 사용자가 질병을 선택했을 때 필요한 데이터만 받아와 기존 페이지는 유지되며 선택한 질병 아래에 추천 시단만 업데이트 되게 함
+2. 페이지 이동 없이 비동기로 식단 정보를 보여주기
+    - 사용자가 질병을 선택했을 때 필요한 데이터만 받아와 기존 페이지는 유지되며 선택한 질병 아래에 추천 식단만 업데이트 되게 함
     
     ```jsx
     <script>
@@ -423,7 +424,7 @@ drwxr-x---  4 root root     4096 Feb  7 09:33 pisikdosik # 생성 완료!
 		xhttp.open("GET", "good-bad-info?diseaseId="+diseaseId);
 		xhttp.send();
 	}
-</script>
+	</script>
     ```
     
     1. URL get요청의 파라미터를 통해 `diseaseId`를 파라미터로 포함하여 **서버에서 해당 질병의 추천 식단 정보를 가져옴**
@@ -434,7 +435,7 @@ drwxr-x---  4 root root     4096 Feb  7 09:33 pisikdosik # 생성 완료!
     2. `xhttp.send();`
         - 위에서 설정한 GET 요청을 **서버로 전송하고** 요청을 받아 해당 `diseaseId`에 맞는 추천 식단 정보를 응답으로 반환
     
-    ⇒ 추천 식단이 사용자에게 페이지를 새로 고침하지 않고 서버에서 데이터를 가져와 동적으로 반영할 수 있어 사용자는 더 빠르게 정보를 확인할 수 있고, 직관이다.
+    ⇒ 추천 식단이 사용자에게 페이지를 새로 고침하지 않고 서버에서 데이터를 가져와 더 빠르게 정보를 직관적으로 확인할 수 있음.
 
 <br>
 
