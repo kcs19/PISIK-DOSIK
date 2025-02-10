@@ -1,9 +1,10 @@
 # 🥗PISIK-DOSIK
-## 목차
-[📒프로젝트 개요](#-프로젝트-개요)<br>
-[🖥️시스템 구성](#️시스템-구성)<br>
-[🌠트러블슈팅](#트러블슈팅)<br>
-[📝회고](#회고)
+## 🗒️목차
+1. [📒프로젝트 개요](#-프로젝트-개요)<br>
+2. [🖥️시스템 구성](#️시스템-구성)<br>
+3. [🛜GCP를 통한 서버 배포](#gcp를-통한-서버-배포)<br>
+4. [🌠트러블슈팅](#트러블슈팅)<br>
+5. [📝회고](#회고)
 
 
 <hr>
@@ -19,7 +20,8 @@
 ## 📒 프로젝트 개요
 
 ###  개발 목적
-50~60대 사용자가 자주 걸리는 질병을 대상으로 피해야 할 음식, 도움이 되는 음식 정보를 제공하고, 관련 음식 조리법을 쉽게 찾아볼 수 있도록 지원하는 웹페이지를 개발한다.
+**질병과 관련된 음식 정보를 한눈에 볼 수 있는 웹사이트 구축** <br>
+    - 사용자가 쉽게 접근할 수 있도록 건강한 음식, 피해야 할 음식 정보를 제공.
 
 **1인당 주요 질병 수**
 ![Image](https://github.com/user-attachments/assets/2d428d03-2c71-405b-8ee3-44ca1ec56c5b)
@@ -35,25 +37,12 @@
     - 대한당뇨병학회: 건강한 식습관이 혈당 조절과 합병증 예방에 도움.
     - 대한고혈압학회: 식이섬유 증가, 나트륨 감소가 혈압 관리에 긍정적 영향.
 
-        https://www.khepi.or.kr/board/view?pageNum=18&rowCnt=10&menuId=MENU00907&maxIndex=99999999999999&minIndex=99999999999999&schType=0&schText=&categoryId=&continent=&country=&upDown=0&boardStyle=&no1=235&linkId=501654
+      [한국건강증진개발원](https://www.khepi.or.kr/board/view?pageNum=18&rowCnt=10&menuId=MENU00907&maxIndex=99999999999999&minIndex=99999999999999&schType=0&schText=&categoryId=&continent=&country=&upDown=0&boardStyle=&no1=235&linkId=501654)
 
 - **문제점 - 식습관 정보를 쉽게 얻기 어려움**.
-    - 많은 사람들이 질병에 따라 **어떤 음식이 건강에 좋은지, 어떤 음식은 피해야 하는지 한눈에 보기 어려움**.
-- **해결책 - 질병과 관련된 음식 정보를 한눈에 볼 수 있는 웹사이트 구축**
-    - 사용자가 쉽게 접근할 수 있도록 **건강한 음식, 피해야 할 음식, 맞춤형 식단 추천 기능**을 제공.
-
-
-###  주요 기능
-
-- 질병별 피해야 할 음식 목록 제공
-- 질병별 섭취하면 좋은 음식 목록 제공
-- 간단한 UI/UX로 사용자 친화적 인터페이스 제공
-
-
-<br>
-
----
-<br>
+    - 많은 사람들이 질병에 따라 어떤 음식이 건강에 좋은지, 어떤 음식은 피해야 하는지 한눈에 보기 어려움
+      
+<hr>
 
 ## 🔧 기술 스택
 
@@ -77,7 +66,7 @@
 
 #### 1. `diseases` 테이블
 
-- **목적**: 각 질병에 대한 기본 정보를 저장합니다.
+- **목적**: 각 질병에 대한 기본 정보를 저장
 - **주요 컬럼**:
     - `disease_id`: 질병의 고유 식별자 (PRIMARY KEY, AUTO_INCREMENT)
     - `disease_name`: 질병의 이름 (NOT NULL)
@@ -85,14 +74,14 @@
 
 #### 2. `foods` 테이블
 
-- **목적**: 다양한 음식 정보를 저장합니다.
+- **목적**: 다양한 음식 정보를 저장
 - **주요 컬럼**:
     - `food_id`: 음식의 고유 식별자 (PRIMARY KEY, AUTO_INCREMENT)
     - `food_name`: 음식의 이름 (NOT NULL)
 
 #### 3. `disease_foods` 테이블
 
-- **목적**: 특정 질병과 음식 간의 관계를 정의하여, 각 질병에 대해 어떤 음식이 권장(Recommended)되거나 피해야(Avoided) 하는지를 관리합니다.
+- **목적**: 특정 질병과 음식 간의 관계를 정의하여, 각 질병에 대해 어떤 음식이 권장(Recommended)되거나 피해야(Avoided) 하는지를 관리
 - **주요 컬럼**:
     - `id`: 관계 레코드의 고유 식별자 (PRIMARY KEY, AUTO_INCREMENT)
     - `disease_id`: 관련 질병의 식별자 (FOREIGN KEY, `diseases.disease_id` 참조, ON DELETE CASCADE)
@@ -172,7 +161,7 @@ DBeaver를 통해 Ubuntu에 설치되어있는 MySQL을 이용한 협업과 어�
     bind-address 변경
     
     ```bash
-    sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf # sudo nano도 가능합니다.
+    sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf # sudo nano도 가능
     
     # bind-address = 127.0.0.1 -> bind-address = 0.0.0.0
     # cat을 통해 출력하여 확인
@@ -191,7 +180,7 @@ DBeaver를 통해 Ubuntu에 설치되어있는 MySQL을 이용한 협업과 어�
 
 ### Tomcat 10.1.34 설치
 
-⚠️주의! Tomcat 10.1.34 은 자바 11 이상을 요구합니다.
+⚠️주의! Tomcat 10.1.34 은 자바 11 이상을 요구
 
 https://downloads-he-fi-1.apache.org/tomcat/tomcat-10/v10.1.34/
 
@@ -223,7 +212,7 @@ sudo /opt/tomcat10/bin/startup.sh
 
 ```
 
-톰캣의 기본 포트는 8080이므로 포트 변경을 원한다면 파일을 변경해야 합니다.
+톰캣의 기본 포트는 8080이므로 포트 변경을 원한다면 파일을 변경해야함함
 
 ```bash
 sudo vi /opt/tomcat10/conf/server.xml 
@@ -243,9 +232,9 @@ STS로부터 export한 war 파일을 정상적으로 우분투 서버에 옮겨�
 
 ### ⚠️주의
 
-현재 우분투 서버의 JDK 버전은 17입니다.
+현재 우분투 서버의 JDK 버전은 17
 
-만약 Eclipse STS를 이용하여 추출한 WAR파일이 JDK-17이 아닌 버전의 JDK로 컴파일이 되었다면 충돌이 일어나므로 JDK 버전을 맞추는 것을 추천합니다.
+만약 Eclipse STS를 이용하여 추출한 WAR파일이 JDK-17이 아닌 버전의 JDK로 컴파일이 되었다면 충돌이 일어나므로 JDK 버전을 맞추는 것을 추천
 
 ### 에러 발생 예시
 
@@ -285,7 +274,7 @@ sudo /opt/tomcat10/bin/shutdown.sh
 sudo /opt/tomcat10/bin/startup.sh
 ```
 
-`ls -al /opt/tomcat10/webapps/` 명령어를 통해서 정상 배포를 확인해야 합니다.
+`ls -al /opt/tomcat10/webapps/` 명령어를 통해서 정상 배포를 확인해야 함.
 
 ```bash
 # war파일명에 맞추어 디렉토리가 생성되어야합니다.
@@ -293,13 +282,13 @@ drwxr-x---  4 root root     4096 Feb  7 09:33 pisikdosik # 생성 완료!
 -rw-r--r--  1 root root 13561942 Feb  7 09:33 pisikdosik.war
 ```
 
-정상적으로 배포가 완료되었다면 `http://<서버_IP>/[war파일명 위 예시에서는 pisikdosik]` 를 통하여 접속을 할 수 있습니다.
+정상적으로 배포가 완료되었다면 `http://<서버_IP>/[war파일명 위 예시에서는 pisikdosik]` 를 통하여 접속을 할 수 있음
 
 ### CloudFlare를 통한 도메인과 Https 설정
 
 1. 가비아에서 원하는 도메인 구매
     
-    https://www.gabia.com/?utm_source=google-gdn&utm_medium=performanceMax&utm_campaign=%EA%B0%80%EB%B9%84%EC%95%84&utm_term=%EA%B0%80%EB%B9%84%EC%95%84&gad_source=1&gclid=Cj0KCQiA-5a9BhCBARIsACwMkJ4GUUAUIfQ6XQU33OPcl3KqzrsIIbEBHRxV99thNBTWgAxKa-W-sXoaAt3UEALw_wcB
+	[🌏Gabia]( https://www.gabia.com/?utm_source=google-gdn&utm_medium=performanceMax&utm_campaign=%EA%B0%80%EB%B9%84%EC%95%84&utm_term=%EA%B0%80%EB%B9%84%EC%95%84&gad_source=1&gclid=Cj0KCQiA-5a9BhCBARIsACwMkJ4GUUAUIfQ6XQU33OPcl3KqzrsIIbEBHRxV99thNBTWgAxKa-W-sXoaAt3UEALw_wcB)
     
 2. 도메인 등록 및 DNS 설정 
     
@@ -323,9 +312,9 @@ drwxr-x---  4 root root     4096 Feb  7 09:33 pisikdosik # 생성 완료!
     
    ![Image](https://github.com/user-attachments/assets/bfa6e99c-db44-4f49-81e0-f68af77b2557)
     
-    다만 보안을 생각한다면 `Full` 혹은 `Full (Strict)` 를 사용하는 것이 좋습니다. 
+    다만 보안을 생각한다면 `Full` 혹은 `Full (Strict)` 를 사용하는 것이 좋음
     
-    단, Cloudflare의 SSL 모드가 `Flexible`이 아닌 경우(`Full` 또는 `Full (Strict)` 모드)에는 **서버에도 SSL 인증서**를 설치해야 합니다.
+    단, Cloudflare의 SSL 모드가 `Flexible`이 아닌 경우(`Full` 또는 `Full (Strict)` 모드)에는 **서버에도 SSL 인증서**를 설치해야 함함
     
     - SSL 인증서 발급 기관 예시 : https://letsencrypt.org/
 4. 80포트가 아닌 8080 포트를 사용하고 싶을 시
@@ -333,14 +322,14 @@ drwxr-x---  4 root root     4096 Feb  7 09:33 pisikdosik # 생성 완료!
     https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/
     
 
-위 과정을 통해 기존 `http://<서버_IP>/[war파일명 위 예시에서는 pisikdosik]` 가 아닌 `https://<서버_IP>/[war파일명 위 예시에서는 pisikdosik]` 로 연결이 가능합니다.
+위 과정을 통해 기존 `http://<서버_IP>/[war파일명 위 예시에서는 pisikdosik]` 가 아닌 `https://<서버_IP>/[war파일명 위 예시에서는 pisikdosik]` 로 연결이 가능
 
 <hr>
 
 ## 🌠트러블슈팅
 ### 1. JSTL 태그 사용으로 코드 간결화
 
-- 기존에는 JSP tag를 사용하여 Java코드를 이용해 select의 옵션을 반복적으로 생성했습니다.
+- 기존에는 JSP tag를 사용하여 Java코드를 이용해 select의 옵션을 반복적으로 생성함
     
 ```jsx
     <%@ page import="java.util.List" %>
@@ -369,7 +358,7 @@ drwxr-x---  4 root root     4096 Feb  7 09:33 pisikdosik # 생성 완료!
 			</div>
 ```
 
-- JSTL를 사용하여 코드 간결화하였습니다.
+- JSTL를 사용하여 코드 간결화
     - EL(Expression Language) `${diseases}` 와 `<c:forEach>` 태그를 더 가독성을 높이고 코드를 단축할 수 있었습니다.
 
 ```html
