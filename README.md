@@ -57,6 +57,14 @@
 | 🛠️ 개발 및 관리 도구 | ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)<br><img src ="https://img.shields.io/badge/dbeaver-372923.svg?style=for-the-badge&logo=dbeaver&logoColor=white"><br>![Apache Tomcat](https://img.shields.io/badge/apache%20tomcat-%23F8DC75.svg?style=for-the-badge&logo=apache-tomcat&logoColor=black)|
 | :eyes: 사용 언어 | ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)<br>![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white)<br>![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)|
 
+| **역할**            | **종류**                                                                                                              |
+|----------------------|-----------------------------------------------------------------------------------------------------------------------|
+| 🤝 협업 도구         | ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white) <br> ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white) |
+| 💬 커뮤니케이션 도구 | ![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white)<br> ![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white) |
+| 🛠️ 개발 및 관리 도구 | ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)<br> ![DBeaver](https://img.shields.io/badge/dbeaver-372923.svg?style=for-the-badge&logo=dbeaver&logoColor=white)<br> ![Apache Tomcat](https://img.shields.io/badge/apache%20tomcat-%23F8DC75.svg?style=for-the-badge&logo=apache-tomcat&logoColor=black)
+| ☁️ 배포 및 인프라 |![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)<br> ![Google Compute Engine](https://img.shields.io/badge/Google%20Compute%20Engine-%234285F4.svg?style=for-the-badge&logo=google-cloud&logoColor=white)<br> ![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=for-the-badge&logo=cloudflare&logoColor=white) <br>|
+| 👀 사용 언어 | ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)<br>![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white)<br>![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) |
+
 <br>
 
 ---
@@ -68,35 +76,44 @@
 
 ### 1. 데이터베이스 설계
 
+![Image](https://github.com/user-attachments/assets/f0e3823c-2246-4210-b0aa-aa265c0c200f)
 #### 1. `diseases` 테이블
 
 - **목적**: 각 질병에 대한 기본 정보를 저장
+
 - **주요 컬럼**:
     - `disease_id`: 질병의 고유 식별자 (PRIMARY KEY, AUTO_INCREMENT)
+    
     - `disease_name`: 질병의 이름 (NOT NULL, UNIQUE)
     - `description`: 질병에 대한 상세 설명
 
 #### 2. `foods` 테이블
 
 - **목적**: 다양한 음식 정보를 저장
+
 - **주요 컬럼**:
     - `food_id`: 음식의 고유 식별자 (PRIMARY KEY, AUTO_INCREMENT)
+
     - `food_name`: 음식의 이름 (NOT NULL, UNIQUE)
 
 #### 3. `disease_foods` 테이블
 
 - **목적**: 특정 질병과 음식 간의 관계를 정의하여, 각 질병에 대해 어떤 음식이 권장(Recommended)되거나 피해야(Avoided) 하는지를 관리
+
 - **주요 컬럼**:
     - `id`: 관계 레코드의 고유 식별자 (PRIMARY KEY, AUTO_INCREMENT)
+
     - `disease_id`: 관련 질병의 식별자 (FOREIGN KEY, `diseases.disease_id` 참조, ON DELETE CASCADE)
     - `food_id`: 관련 음식의 식별자 (FOREIGN KEY, `foods.food_id` 참조, ON DELETE CASCADE)
     - `food_type`: 해당 음식의 분류를 나타내는 ENUM 필드 (`Recommended` 또는 `Avoided`, NOT NULL)
     - `reason`: 선택한 음식 분류에 대한 이유 설명
 ### 2. 주요 기능 및 화면 구성
 - 질병 선택 기능 제공
+
 - 질병별 피해야 할 음식 목록 제공
 - 질병별 섭취하면 좋은 음식 목록 제공
 - 간단한 UI/UX로 사용자 친화적 인터페이스 제공
+
 ![image](https://github.com/user-attachments/assets/20c34db0-71f4-44e6-9521-45cb9c7f5213)
 ![image](https://github.com/user-attachments/assets/89e2295f-a515-43f0-a63d-e704f1f545a0)
 
