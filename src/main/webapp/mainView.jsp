@@ -10,7 +10,7 @@ pageEncoding="UTF-8"%>
 	<head>
 		<meta charset="UTF-8">
 		<title>건강 음식 백과</title>
-		<link rel="stylesheet" href="mainView.css">
+		<link rel="stylesheet" type="text/css" href="mainView.css">
 	</head>
 	
 	<body>
@@ -31,8 +31,6 @@ pageEncoding="UTF-8"%>
 				    </select>
 		    	</div>
 			</div>
-	
-	        
 	    </div> 
 	    
 	    <!-- 음식 정보 섹션 -->
@@ -56,6 +54,12 @@ pageEncoding="UTF-8"%>
 			      	//console.log(data,typeof(data));
 			    	document.getElementById("food-info").innerHTML = data;
 			    	document.getElementById("food-info").style.display = "block";
+			    	
+			    	let link = document.createElement('link');
+	                link.rel = 'stylesheet';
+	                link.type = 'text/css';
+	                link.href = 'foodView.css';  // CSS 파일 경로
+	                document.head.appendChild(link);
 			    	}
 				};
 			xhttp.open("GET", "good-bad-info?diseaseId="+diseaseId);
