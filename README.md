@@ -212,7 +212,7 @@ sudo /opt/tomcat10/bin/startup.sh
 
 ```
 
-톰캣의 기본 포트는 8080이므로 포트 변경을 원한다면 파일을 변경해야함함
+톰캣의 기본 포트는 8080이므로 포트 변경을 원한다면 파일을 변경해야함
 
 ```bash
 sudo vi /opt/tomcat10/conf/server.xml 
@@ -228,7 +228,7 @@ sudo /opt/tomcat10/bin/startup.sh
 
 STS로부터 export한 war 파일을 정상적으로 우분투 서버에 옮겨오고 난 뒤 진행
 
-추출한 war파일을 `/opt/tomcat10/webapps/` 에 위치시킵니다.
+추출한 war파일을 `/opt/tomcat10/webapps/` 에 위치시키기
 
 ### ⚠️주의
 
@@ -274,10 +274,10 @@ sudo /opt/tomcat10/bin/shutdown.sh
 sudo /opt/tomcat10/bin/startup.sh
 ```
 
-`ls -al /opt/tomcat10/webapps/` 명령어를 통해서 정상 배포를 확인해야 함.
+`ls -al /opt/tomcat10/webapps/` 명령어를 통해서 정상 배포를 확인해야 함
 
 ```bash
-# war파일명에 맞추어 디렉토리가 생성되어야합니다.
+# war파일명에 맞추어 디렉토리가 생성되어야함
 drwxr-x---  4 root root     4096 Feb  7 09:33 pisikdosik # 생성 완료!
 -rw-r--r--  1 root root 13561942 Feb  7 09:33 pisikdosik.war
 ```
@@ -314,7 +314,7 @@ drwxr-x---  4 root root     4096 Feb  7 09:33 pisikdosik # 생성 완료!
     
     다만 보안을 생각한다면 `Full` 혹은 `Full (Strict)` 를 사용하는 것이 좋음
     
-    단, Cloudflare의 SSL 모드가 `Flexible`이 아닌 경우(`Full` 또는 `Full (Strict)` 모드)에는 **서버에도 SSL 인증서**를 설치해야 함함
+    단, Cloudflare의 SSL 모드가 `Flexible`이 아닌 경우(`Full` 또는 `Full (Strict)` 모드)에는 **서버에도 SSL 인증서**를 설치해야 함
     
     - SSL 인증서 발급 기관 예시 : https://letsencrypt.org/
 4. 80포트가 아닌 8080 포트를 사용하고 싶을 시
