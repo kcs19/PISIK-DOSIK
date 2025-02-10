@@ -23,6 +23,7 @@
 **질병과 관련된 음식 정보를 한눈에 볼 수 있는 웹사이트 구축** <br>
     - 사용자가 쉽게 접근할 수 있도록 건강한 음식, 피해야 할 음식 정보를 제공
 
+
 **1인당 주요 질병 수**
 ![Image](https://github.com/user-attachments/assets/2d428d03-2c71-405b-8ee3-44ca1ec56c5b)
 
@@ -39,7 +40,7 @@
 
       [한국건강증진개발원](https://www.khepi.or.kr/board/view?pageNum=18&rowCnt=10&menuId=MENU00907&maxIndex=99999999999999&minIndex=99999999999999&schType=0&schText=&categoryId=&continent=&country=&upDown=0&boardStyle=&no1=235&linkId=501654)
 
-- **문제점 - 식습관 정보를 쉽게게 얻기 어려움**
+- **문제점 - 식습관 정보를 쉽게 얻기 어려움**
     - 많은 사람들이 질병에 따라 어떤 음식이 건강에 좋은지, 어떤 음식은 피해야 하는지 한눈에 보기 어려움
       
 <hr>
