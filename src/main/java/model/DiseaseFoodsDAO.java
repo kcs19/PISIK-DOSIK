@@ -20,14 +20,13 @@ public class DiseaseFoodsDAO {
 		try {
 			con = DataSourceManager.getConnection();
 			
-			pstmt = con.prepareStatement("select * from disease_foods where disease_id=?");
+			pstmt = con.prepareStatement("select df.food_type, f.food_name, df.reason from disease_foods df, foods f where df.disease_id=? and f.food_id = df.food_id;");
 			pstmt.setInt(1, diseaseId);
 			rs = pstmt.executeQuery();
 			foodList = new ArrayList<>();
 			
 			while (rs.next()) {
-				int foodId = rs.getInt(3);
-				foodList.add(new DiseaseFoodDTO(rs.getString(4), FoodDAO.getFoodNameByFoodId(foodId), rs.getString(5)));
+				foodList.add(new DiseaseFoodDTO(rs.getString(1), rs.getString(2), rs.getString(3)));
 			}
 			System.out.println(foodList);
 			for (DiseaseFoodDTO f : foodList) {
