@@ -18,7 +18,7 @@ public class DiseaseDAO {
 		
 		try {
 			con = DataSourceManager.getConnection();
-			pstmt = con.prepareStatement("select * from diseases order by diseases_name");
+			pstmt = con.prepareStatement("select * from diseases order by disease_name");
 			rs = pstmt.executeQuery();
 			
 			all = new ArrayList<>();
