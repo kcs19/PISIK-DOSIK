@@ -2,9 +2,9 @@
 ## 🗒️목차
 1. [📒프로젝트 개요](#-프로젝트-개요)<br>
 2. [🖥️시스템 구성](#️시스템-구성)<br>
-3. [🛜GCP를 통한 서버 배포](#gcp를-통한-서버-배포)<br>
+3. [📶GCP를 통한 서버 배포](#gcp를-통한-서버-배포)<br>
 4. [🌠트러블슈팅](#트러블슈팅)<br>
-5. [⏱️ 질병-음식 쿼리 성능 최적화](#%EF%B8%8F-질병-음식-쿼리-성능-최적화)<br>
+5. [⏱️질병-음식 쿼리 성능 최적화](#%EF%B8%8F-질병-음식-쿼리-성능-최적화)<br>
 6. [📝회고](#회고)
 
 
@@ -22,7 +22,8 @@
 
 ###  개발 목적
 **질병과 관련된 음식 정보를 한눈에 볼 수 있는 웹사이트** <br>
-    - 50대 이상 환자의 질병 보유 수가 급증하고 있으며, 질병은 식습관과 밀접한 관련이 있음. 이에 따라 질병에 맞는 추천 음식과 피해야 할 음식을 한눈에 제공함으로써 질병 예방과 관리에 도움 제공.
+    - 50대 이상 환자의 질병 보유 수가 급증하고 있으며, 질병은 식습관과 밀접한 관련이 있음. 이에 따라 질병에 맞는 추천 음식과 피해야 할 음식을 한눈에 제공함으로써 질병 예방과 관리에 도움 제공. <br>
+    - 활용 데이터 : https://opendata.hira.or.kr/op/opc/olapHifrqSickInfoTab3.do
 
 
 <br>
@@ -42,7 +43,7 @@
 
       [한국건강증진개발원](https://www.khepi.or.kr/board/view?pageNum=18&rowCnt=10&menuId=MENU00907&maxIndex=99999999999999&minIndex=99999999999999&schType=0&schText=&categoryId=&continent=&country=&upDown=0&boardStyle=&no1=235&linkId=501654)
 
-- **문제점 - 식습관 정보를 쉽게 얻기 어려움**
+- **식습관 정보를 쉽게 얻기 어려움**
     - 많은 사람들이 질병에 따라 어떤 음식이 건강에 좋은지, 어떤 음식은 피해야 하는지 한눈에 보기 어려움
       
 <hr>
@@ -92,6 +93,12 @@
     - `food_type`: 해당 음식의 분류를 나타내는 ENUM 필드 (`Recommended` 또는 `Avoided`, NOT NULL)
     - `reason`: 선택한 음식 분류에 대한 이유 설명
 ### 2. 주요 기능 및 화면 구성
+- 질병별 피해야 할 음식 목록 제공
+- 질병별 섭취하면 좋은 음식 목록 제공
+- 간단한 UI/UX로 사용자 친화적 인터페이스 제공
+![image](https://github.com/user-attachments/assets/20c34db0-71f4-44e6-9521-45cb9c7f5213)
+![image](https://github.com/user-attachments/assets/89e2295f-a515-43f0-a63d-e704f1f545a0)
+
 
 
 <br>
@@ -100,7 +107,7 @@
 
 <br>
 
-## 📶GCP를 통한 서버 배포
+## 📶 GCP를 통한 서버 배포
 
 ### Google Cloud에서 VM 인스턴스 생성하기
 
@@ -342,23 +349,23 @@ drwxr-x---  4 root root     4096 Feb  7 09:33 pisikdosik # 생성 완료!
 
 ```html
 <div class="disease-list" id="disease-list">
-			    <div class="select-container">
-			        <span class="select-text">질병 선택🔎</span>
-			        <select id="disease-select" onchange="loadFoodInfo(this.value)" class="select">
-			            <option value="">질병 선택</option>
-			            <% 
-			                if (request.getAttribute("diseases") != null) {
-			                    List<Disease> diseases = (List<Disease>) request.getAttribute("diseases");
-			                    for (Disease disease : diseases) { 
-			            %>
-			                        <option value="<%= disease.getDiseaseId() %>"><%= disease.getDiseaseName() %></option>
-			            <% 
-			                    } 
-			                } 
-			            %>
-			        </select>
-			    </div>
-			</div>
+    <div class="select-container">
+	<span class="select-text">질병 선택🔎</span>
+	<select id="disease-select" onchange="loadFoodInfo(this.value)" class="select">
+	    <option value="">질병 선택</option>
+	    <% 
+		if (request.getAttribute("diseases") != null) {
+		    List<Disease> diseases = (List<Disease>) request.getAttribute("diseases");
+		    for (Disease disease : diseases) { 
+	    %>
+			<option value="<%= disease.getDiseaseId() %>"><%= disease.getDiseaseName() %></option>
+	    <% 
+		    } 
+		} 
+	    %>
+	</select>
+    </div>
+</div>
 ```
 
 - JSTL를 사용하여 코드 간결화
@@ -370,16 +377,16 @@ drwxr-x---  4 root root     4096 Feb  7 09:33 pisikdosik # 생성 완료!
 
 ```html
 <div class="disease-list" id="disease-list">
-	        	<div class="select-container">
-        			<span class="select-text">질병 선택🔎</span>
-				    <select id="disease-select" onchange="loadFoodInfo(this.value)" class="select">
-				    	<option value="">질병 선택</option>
-				        <c:forEach items="${diseases}" var="disease">
-				            <option value="${disease.diseaseId}">${disease.diseaseName}</option>
-				        </c:forEach>
-				    </select>
-		    	</div>
-			</div>
+	<div class="select-container">
+		<span class="select-text">질병 선택🔎</span>
+		    <select id="disease-select" onchange="loadFoodInfo(this.value)" class="select">
+			<option value="">질병 선택</option>
+			<c:forEach items="${diseases}" var="disease">
+			    <option value="${disease.diseaseId}">${disease.diseaseName}</option>
+			</c:forEach>
+		    </select>
+	</div>
+</div>
 ```
 
 하지만 JSTL 라이브러리 추가가 필요했음
@@ -403,20 +410,20 @@ drwxr-x---  4 root root     4096 Feb  7 09:33 pisikdosik # 생성 완료!
     
     ```jsx
     <script>
-    		function loadFoodInfo(diseaseId) {
-    			const xhttp = new XMLHttpRequest();
-    			xhttp.onreadystatechange = function() {
-    				if (this.readyState == 4 && this.status == 200) {
-    					let data = this.responseText; //서버 응답
-    			      	//console.log(data,typeof(data));
-    			    	document.getElementById("food-info").innerHTML = data;
-    			    	document.getElementById("food-info").style.display = "block";
-    			    	}
-    				};
-    			xhttp.open("GET", "good-bad-info?diseaseId="+diseaseId);
-    			xhttp.send();
-    		}
-    	</script>
+	function loadFoodInfo(diseaseId) {
+		const xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				let data = this.responseText; //서버 응답
+			//console.log(data,typeof(data));
+			document.getElementById("food-info").innerHTML = data;
+			document.getElementById("food-info").style.display = "block";
+			}
+			};
+		xhttp.open("GET", "good-bad-info?diseaseId="+diseaseId);
+		xhttp.send();
+	}
+</script>
     ```
     
     1. URL get요청의 파라미터를 통해 `diseaseId`를 파라미터로 포함하여 **서버에서 해당 질병의 추천 식단 정보를 가져옴**
