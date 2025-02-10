@@ -75,7 +75,7 @@
 - **목적**: 각 질병에 대한 기본 정보를 저장
 - **주요 컬럼**:
     - `disease_id`: 질병의 고유 식별자 (PRIMARY KEY, AUTO_INCREMENT)
-    - `disease_name`: 질병의 이름 (NOT NULL)
+    - `disease_name`: 질병의 이름 (NOT NULL, UNIQUE)
     - `description`: 질병에 대한 상세 설명
 
 #### 2. `foods` 테이블
@@ -83,7 +83,7 @@
 - **목적**: 다양한 음식 정보를 저장
 - **주요 컬럼**:
     - `food_id`: 음식의 고유 식별자 (PRIMARY KEY, AUTO_INCREMENT)
-    - `food_name`: 음식의 이름 (NOT NULL)
+    - `food_name`: 음식의 이름 (NOT NULL, UNIQUE)
 
 #### 3. `disease_foods` 테이블
 
