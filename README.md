@@ -64,9 +64,10 @@
 <br>
 
 ## 🖥️시스템 구성
+### 1. 시스템 아키텍처
+![Image](https://github.com/user-attachments/assets/522855a5-6bfc-451e-afff-a279ed8d7f36)
 
-
-### 1. 데이터베이스 설계
+### 2. 데이터베이스 설계
 
 ![Image](https://github.com/user-attachments/assets/f0e3823c-2246-4210-b0aa-aa265c0c200f)
 #### 1. `diseases` 테이블
